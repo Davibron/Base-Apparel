@@ -2,9 +2,22 @@ import React, { useState } from "react"
 
 export default function Description() {
   const [inputValue, setInputValue] = useState('');
+  const [showImage, setShowImage] = useState(false);
+  const [showDiv, setShowDiv] = useState(false);
+  const [borderColor, setBorderColor] = useState('');
 
   const handleButtonClick = () => {
-    alert('You entered: ' + inputValue);
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    if (inputValue.trim() === '' || !emailPattern.test(inputValue)) {
+      setShowImage(true);
+      setShowDiv(true);
+      setBorderColor('red');
+    } else {
+      setShowImage(false);
+      setShowDiv(false);
+      setBorderColor('');
+    }
   };
 
   return (
@@ -17,15 +30,33 @@ export default function Description() {
         Hello fellow shoppers! We're currently building our new fashion store. Add your email below to stay up-to-date with announcements and our launch deals.
       </h4>
       <div className="email">
-        <input
-          type="email"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Email Address"
-         />
+        <div className="input-container">
+          {showImage && (
+            <img src="icon-error.svg" className="error-image" />
+          )}
+          <input
+            type="email"
+            value={inputValue}
+            onChange={(e) => {
+              setInputValue(e.target.value)
+              setShowDiv(false);
+              setBorderColor('');
+            }}
+            placeholder="Email Address"
+            style={{ borderColor: borderColor }}
+          />
+        </div>
+        
         <button onClick={handleButtonClick}>
           <img src="../images/icon-arrow.svg" alt="" />
         </button>
+        {showDiv && (
+        <div className="error-message">
+          {inputValue.trim() === ''
+            ? 'Input cannot be empty.'
+            : 'Please provide a valid email'}
+        </div>
+      )}
       </div>
       
     </div>

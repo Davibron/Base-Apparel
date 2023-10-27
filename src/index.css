@@ -70,6 +70,29 @@ button {
   border: none;
   border-radius: 50px;
   background: linear-gradient(135deg, hsl(0, 80%, 86%), hsl(0, 74%, 74%));
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.input-container {
+  position: relative;
+}
+
+.error-image {
+  position: absolute;
+  top: 30px;
+  left: 210px;
+}
+
+.error-message {
+  margin: 8px 20px;
+  font-size: 11px;
+  color: hsl(0, 93%, 68%);
 }
 
 footer {
